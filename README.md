@@ -1,23 +1,18 @@
 <h1 align="center">
   <br>
-  <a href="https://github.com/mykaadev/NsUtilityAI/releases"><img src="https://raw.githubusercontent.com/mykaadev/NsUtilityAI/refs/heads/main/Resources/UtilityAIBanner.png" alt="NsUtilityAILogo" width="128"></a>
+  <a href="https://github.com/mykaadev/NsUtilityAI/releases"><img src="https://raw.githubusercontent.com/mykaadev/NsUtilityAI/refs/heads/main/Resources/UtilityAIBanner.png" alt="NsUtilityAILogo" width="500"></a>
 </h1>
 
 <h4 align="center">A Utility AI framework for Unreal Engine.</h4>
 
 <div align="center">
-    <a href="https://github.com/mykaadev/NsUtilityAI/commits/main">
-    <img src="https://img.shields.io/github/last-commit/mykaadev/NsUtilityAI?style=plastic&logo=github&logoColor=white" alt="GitHub Last Commit">
-    <a href="https://github.com/mykaadev/NsUtilityAI/issues">
-    <img src="https://img.shields.io/github/issues-raw/mykaadev/NsUtilityAI?style=plastic&logo=github&logoColor=white" alt="GitHub Issues">
-    <a href="https://github.com/mykaadev/NsUtilityAI/pulls">
-    <img src="https://img.shields.io/github/issues-pr-raw/mykaadev/NsUtilityAI?style=plastic&logo=github&logoColor=white" alt="GitHub Pull Requests">
-    <a href="https://github.com/mykaadev/NsUtilityAI">
-    <img src="https://img.shields.io/github/stars/mykaadev/NsUtilityAI?style=plastic&logo=github" alt="GitHub Stars">
- <a href="https://twitter.com/mykaadev/">
-    <img src="https://img.shields.io/twitter/follow/mykaadev?style=plastic&logo=x" alt="Twitter Follow">
+    <a href="https://github.com/mykaadev/NsUtilityAI/commits/main"><img src="https://img.shields.io/github/last-commit/mykaadev/NsUtilityAI?style=plastic&logo=github&logoColor=white" alt="GitHub Last Commit"></a>
+    <a href="https://github.com/mykaadev/NsUtilityAI/issues"><img src="https://img.shields.io/github/issues-raw/mykaadev/NsUtilityAI?style=plastic&logo=github&logoColor=white" alt="GitHub Issues"></a>
+    <a href="https://github.com/mykaadev/NsUtilityAI/pulls"><img src="https://img.shields.io/github/issues-pr-raw/mykaadev/NsUtilityAI?style=plastic&logo=github&logoColor=white" alt="GitHub Pull Requests"></a>
+    <a href="https://github.com/mykaadev/NsUtilityAI"><img src="https://img.shields.io/github/stars/mykaadev/NsUtilityAI?style=plastic&logo=github" alt="GitHub Stars"></a>
+ <a href="https://twitter.com/mykaadev/"><img src="https://img.shields.io/twitter/follow/mykaadev?style=plastic&logo=x" alt="Twitter Follow"></a>
 
-<p style="display = "none">
+<p style="display:none;">
   <a href="#-summary">👀 Summary</a> •
   <a href="#-what-is-utility-ai">❓ What is Utility AI</a> •
   <a href="#-features">📦 Features</a> •
