@@ -64,10 +64,81 @@ Unreal Engine 5.2+
 - `UNsUtilAIAction` – base class for actions. Override **ExecuteAction** and provide **Considerations**.
 - `UNsUtilAIConsideration` – base class for scoring logic with a customizable curve.
 
+### Main Functions
+- `Think()` – evaluates `PossibleActions`, runs the best scoring action.
+- `ChooseAction` – given an array of actions, selects the highest scoring one.
+- `ScoreAction` – multiplies consideration scores to produce an action utility value.
+- `ExecuteAction` – override in your action subclass to perform behaviour.
+- `CalculateScore` – override in a consideration to return a raw 0‑1 score.
+- `GetBestAction` – returns the action chosen by the last call to **Think**.
+
+### Getting Started
+1. In your AI actor, add **`UNsUtilAIBrainComponent`**.
+2. Create custom **`UNsUtilAIAction`** subclasses and assign them to the Brain Component’s **`PossibleActions`** array.
+3. Implement **`CalculateScore()`** in each **`UNsUtilAIConsideration`** to read your game data, then assign the consideration to the action that you want.
+4. Call **`Think()`** whenever the AI should evaluate and execute an action.
+
+### Shooter Enemy Example
+
+An enemy might provide actions like:
+
+* **Attack Player**
+* **Reload Weapon**
+* **Find Cover**
+* **Retreat**
+
+Each action is scored by its considerations:
+
+| Action | Considerations |
+| --- | --- |
+| Attack Player | Player in sight, Ammo amount, Health percentage |
+| Reload Weapon | Ammo amount, Safe to reload |
+| Find Cover | Nearby cover points, Under fire |
+| Retreat | Health critically low, No cover available |
+
 ```cpp
-// Example setup in C++
-BrainComponent->PossibleActions = { AttackAction, FleeAction };
-BrainComponent->Think();
+// Actor with brain component
+AMyBot::AMyBot()
+{
+    Brain = CreateDefaultSubobject<UNsUtilAIBrainComponent>(TEXT("Brain"));
+}
+
+void AMyBot::BeginPlay()
+{
+    if (Brain != nullptr)
+    {
+        Brain->Think(); // Chose the best action and execute it
+    }
+}
+
+// Custom consideration
+UCLASS()
+class UHealthConsideration : public UNsUtilAIConsideration
+{
+    GENERATED_BODY()
+
+public:
+    virtual float CalculateScore_Implementation(AActor* InOwner) const override
+    {
+        if (const AMyBot* const Bot = Cast<AMyBot>(InOwner))
+        {
+            const float HealthScore = Bot->GetCurrentHealth() / Bot->GetMaxtHealth(); 
+            return HealthScore;
+        }
+    }
+};
+
+// Custom action
+UCLASS()
+class UAttackAction : public UNsUtilAIAction
+{
+    GENERATED_BODY()
+
+    virtual void ExecuteAction_Implementation(AActor* InActor) override
+    {
+        UE_LOG(LogTemp, Log, TEXT("Firing at player"));
+    }
+};
 ```
 
 ## ❤️ Credits
