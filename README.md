@@ -44,10 +44,12 @@ Utility AI evaluates many potential actions and ranks them based on their desira
 - Works entirely in C++ and Blueprints for flexibility.
 
 ## 📦 Features
+- **Designer-Friendly**: Tune weights and response curves directly in the Unreal Editor.
+- **Modular Architecture**: Extendable C++ base classes for custom actions and considerations.
+- **Simple API** that can be extended to fit any project.
 - **Blueprint-ready components** for actions and considerations.
 - **Brain Component** to select and execute the best action.
 - **Custom response curves** for considerations.
-- **Simple API** that can be extended to fit any project.
 
 ## ⚙️ Requirements
 Unreal Engine 5.2+
