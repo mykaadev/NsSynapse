@@ -68,6 +68,7 @@ Unreal Engine 5.2+
 
 ### Main Functions
 - `Think()` – evaluates `PossibleActions`, runs the best scoring action.
+- `ThinkAndReact()` – evaluates `PossibleActions`, and executes the best action.
 - `ChooseAction` – given an array of actions, selects the highest scoring one.
 - `ScoreAction` – multiplies consideration scores to produce an action utility value.
 - `ExecuteAction` – override in your action subclass to perform behaviour.
@@ -79,7 +80,7 @@ Unreal Engine 5.2+
 2. Create custom **`UNsUtilAIAction`** subclasses and assign them to the Brain Component’s **`PossibleActions`** array.
 3. Implement **`CalculateScore()`** in each **`UNsUtilAIConsideration`** to read your game data.
 4. For each Consideration, adjust the **Response Curve** to shape decision sensitivity and assign it to the action that you want..
-5. Call **`Think()`** whenever the AI should evaluate and execute an action.
+5. Call **`ThinkAndReact()`** whenever the AI should evaluate and execute an action.
 
 ### Shooter Enemy Example
 
@@ -112,7 +113,7 @@ void AMyBot::BeginPlay()
 {
     if (Brain != nullptr)
     {
-        Brain->Think(); // Chose the best action and execute it
+        Brain->ThinkAndReact(); // Chose the best action and execute it
     }
 }
 
