@@ -21,15 +21,15 @@ public:
     UNsUtilAIAction();
 
     /** Get the normalized action score */
-    UFUNCTION(BlueprintCallable)
+    UFUNCTION(BlueprintCallable, Category = "NSUtilityAI")
     float GetScore() const;
 
     /** Set the action score */
-    UFUNCTION(BlueprintCallable)
+    UFUNCTION(BlueprintCallable, Category = "NSUtilityAI")
     void SetScore(const float InValue);
 
     /** Execute the action */
-    UFUNCTION(BlueprintNativeEvent)
+    UFUNCTION(BlueprintNativeEvent, Category = "NSUtilityAI")
     void ExecuteAction(class AActor* InActor);
     virtual void ExecuteAction_Implementation(class AActor* const InActor);
 
@@ -37,7 +37,7 @@ public:
 public:
 
     /** Considerations */
-    UPROPERTY(BlueprintReadWrite, EditAnywhere)
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "NSUtilityAI")
     TArray<TSubclassOf<class UNsUtilAIConsideration>> Considerations;
 
 private:

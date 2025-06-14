@@ -1,6 +1,7 @@
 // Copyright (C) 2024 mykaa. All rights reserved.
 
 #include "Classes/NsUtilAIConsideration.h"
+#include "Curves/RichCurve.h"
 
 UNsUtilAIConsideration::UNsUtilAIConsideration()
     : Score(0.f)
@@ -32,9 +33,10 @@ float UNsUtilAIConsideration::CalculateScore_Implementation(class AActor* const 
 
 float UNsUtilAIConsideration::EvaluateInCurve(const float InNormalizedScore) const
 {
-    if (ConsiderationCurve.GetRichCurveConst() != nullptr)
+    const FRichCurve* const RichCurve = ConsiderationCurve.GetRichCurveConst();
+    if (RichCurve != nullptr)
     {
-        return ConsiderationCurve.GetRichCurveConst()->Eval(InNormalizedScore);
+        return RichCurve->Eval(InNormalizedScore);
     }
 
     return 0.f;

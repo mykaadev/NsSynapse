@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Curves/Curvefloat.h"
 #include "UObject/Object.h"
 #include "NsUtilAIConsideration.generated.h"
 
@@ -21,25 +22,25 @@ public:
     UNsUtilAIConsideration();
 
     /** Get Score */
-    UFUNCTION()
+    UFUNCTION(BlueprintCallable, Category = "NSUtilityAI")
     float GetScore(class AActor* const InContext) const;
 
     /** Calculate Score */
-    UFUNCTION(BlueprintNativeEvent)
+    UFUNCTION(BlueprintNativeEvent, Category = "NSUtilityAI")
     float CalculateScore(class AActor* InOwner) const;
     virtual float CalculateScore_Implementation(class AActor* const InOwner) const;
 
 private:
 
     /** Evaluate In curve */
-    UFUNCTION()
-    float EvaluateInCurve(float InNormalizedScore) const;
+    UFUNCTION(BlueprintCallable, Category = "NSUtilityAI")
+    float EvaluateInCurve(const float InNormalizedScore) const;
 
 // Variables
 public:
 
     /** Consideration Curve */
-    UPROPERTY(BlueprintReadWrite, EditAnywhere)
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "NSUtilityAI")
     FRuntimeFloatCurve ConsiderationCurve;
 
 private:

@@ -1,15 +1,21 @@
-﻿// Copyright Epic Games, Inc. All Rights Reserved.
+﻿// Copyright (C) 2024 mykaa. All rights reserved.
 
 #pragma once
 
 #include "CoreMinimal.h"
 #include "Modules/ModuleManager.h"
 
+/**
+ * Ns Utility AI runtime module
+ */
 class FNsUtilityAIModule : public IModuleInterface
 {
+
+// Functions
 public:
 
-	/** IModuleInterface implementation */
-	virtual void StartupModule() override;
-	virtual void ShutdownModule() override;
+    //~ Begin IModuleInterface Interface
+    virtual void StartupModule() override;
+    virtual void ShutdownModule() override;
+    //~ End IModuleInterface Interface
 };

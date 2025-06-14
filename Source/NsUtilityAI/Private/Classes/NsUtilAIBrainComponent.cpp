@@ -44,7 +44,7 @@ void UNsUtilAIBrainComponent::ChooseAction(const TArray<TSubclassOf<UNsUtilAIAct
     }
 }
 
-float UNsUtilAIBrainComponent::ScoreAction(UNsUtilAIAction* const InAction)
+float UNsUtilAIBrainComponent::ScoreAction(UNsUtilAIAction* const InAction) const
 {
     // If action is null, score zero
     if (InAction == nullptr)
@@ -100,10 +100,16 @@ UNsUtilAIAction* UNsUtilAIBrainComponent::GetBestAction() const
     return BestAction;
 }
 
-void UNsUtilAIBrainComponent::Think()
+UNsUtilAIAction* UNsUtilAIBrainComponent::Think()
 {
     // Each time Think() runs, we re-evaluate all possible actions
     ChooseAction(PossibleActions);
+    return GetBestAction();
+}
+
+void UNsUtilAIBrainComponent::ThinkAndReact()
+{
+    Think(); // Each time Think() runs, we re-evaluate all possible actions
 
     // Automatically execute the action
     if (BestAction != nullptr && GetOwner() != nullptr)

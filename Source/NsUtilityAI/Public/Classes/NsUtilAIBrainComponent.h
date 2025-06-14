@@ -22,7 +22,7 @@ public:
     UNsUtilAIBrainComponent();
 
     /** Given an array of action classes, choose the one with the highest score */
-    UFUNCTION()
+    UFUNCTION(BlueprintCallable, Category = "NSUtilityAI")
     void ChooseAction(const TArray<TSubclassOf<class UNsUtilAIAction>>& InActions);
 
     /**
@@ -30,25 +30,29 @@ public:
      * @param InAction - A UNsUtilAIAction to evaluate.
      * @return The final utility score normalized between [0,1].
      */
-    UFUNCTION()
-    float ScoreAction(class UNsUtilAIAction* const InAction);
+    UFUNCTION(BlueprintCallable, Category = "NSUtilityAI")
+    float ScoreAction(class UNsUtilAIAction* const InAction) const;
 
     /** Returns the currently selected best Action */
-    UFUNCTION()
+    UFUNCTION(BlueprintCallable, Category = "NSUtilityAI")
     class UNsUtilAIAction* GetBestAction() const;
 
-    /** Main entry—call this on a timer or via Tick to re-evaluate decision each frame or interval. */
-    UFUNCTION(BlueprintCallable)
-    void Think();
+    /** Think about what action is better to do at this given moment, this will overwrite our current BestAction */
+    UFUNCTION(BlueprintCallable, Category = "NSUtilityAI")
+    class UNsUtilAIAction* Think();
+
+    /** Think and react */
+    UFUNCTION(BlueprintCallable, Category = "NSUtilityAI")
+    void ThinkAndReact();
 
 // Variables
 public:
 
     /** Best action that was chosen */
-    UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "NSUtilityAI")
     TObjectPtr<class UNsUtilAIAction> BestAction;
 
     /**  List of action classes the brain can choose from */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "NSUtilityAI")
     TArray<TSubclassOf<class UNsUtilAIAction>> PossibleActions;
 };
