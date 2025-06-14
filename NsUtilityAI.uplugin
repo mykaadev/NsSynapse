@@ -1,0 +1,23 @@
+﻿{
+	"FileVersion": 3,
+	"Version": 1,
+	"VersionName": "1.0",
+	"FriendlyName": "NsUtilityAI",
+	"Description": "Night Shift - Utility AI",
+	"Category": "Other",
+	"CreatedBy": "mykaadev",
+	"CreatedByURL": " mykaadev.github.io",
+	"DocsURL": "",
+	"MarketplaceURL": "",
+	"CanContainContent": true,
+	"IsBetaVersion": false,
+	"IsExperimentalVersion": false,
+	"Installed": false,
+	"Modules": [
+		{
+			"Name": "NsUtilityAI",
+			"Type": "Runtime",
+			"LoadingPhase": "Default"
+		}
+	]
+}
