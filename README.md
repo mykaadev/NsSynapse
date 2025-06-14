@@ -68,7 +68,7 @@ Unreal Engine 5.2+
 
 ### Main Functions
 - `Think()` – evaluates `PossibleActions`, runs the best scoring action.
-- `ThinkAndReact()` – evaluates `PossibleActions`, and executes the best action.
+- `ThinkAndReact()` – evaluates `PossibleActions` and executes the best action.
 - `ChooseAction` – given an array of actions, selects the highest scoring one.
 - `ScoreAction` – multiplies consideration scores to produce an action utility value.
 - `ExecuteAction` – override in your action subclass to perform behaviour.
