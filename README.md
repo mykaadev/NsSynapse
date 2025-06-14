@@ -1,6 +1,6 @@
 <h1 align="center">
   <br>
-  <a href="https://github.com/mykaadev/NsUtilityAI/releases"><img src="https://raw.githubusercontent.com/mykaadev/NsUtilityAI/refs/heads/main/Resources/UtilityAIBanner.png" alt="NsUtilityAILogo" width="500"></a>
+  <a href="https://github.com/mykaadev/NsUtilityAI/releases"><img src="https://raw.githubusercontent.com/mykaadev/NsUtilityAI/refs/heads/main/Resources/UtilityAIBanner.png" alt="NsUtilityAILogo" width="350"></a>
 </h1>
 
 <h4 align="center">A Utility AI framework for Unreal Engine.</h4>
