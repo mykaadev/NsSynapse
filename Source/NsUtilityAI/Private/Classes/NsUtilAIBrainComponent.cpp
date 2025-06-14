@@ -57,9 +57,9 @@ float UNsUtilAIBrainComponent::ScoreAction(UNsUtilAIAction* const InAction)
     const int32 NumConsiderations = ActionConsiderations.Num();
     if (NumConsiderations == 0)
     {
-        // No considerations means always “fully desirable.” Adjust to taste. We’ll treat it as maximum utility.
-        InAction->SetScore(0.5f);
-        return 0.5f;
+        // No considerations means the action is fully desirable.
+        InAction->SetScore(1.f);
+        return 1.f;
     }
 
     // (N-1)/N = tempering factor: ensures that one low consideration doesn't completely kill the final score too early
