@@ -18,9 +18,12 @@
     <img src="https://img.shields.io/twitter/follow/mykaadev?style=plastic&logo=x" alt="Twitter Follow">
 
 <p style="display = "none">
+  <a href="#-summary">👀 Summary</a> •
+  <a href="#-what-is-utility-ai">❓ What is Utility AI</a> •
   <a href="#-features">📦 Features</a> •
   <a href="#-requirements">⚙️ Requirements</a> •
   <a href="#-installation">🛠️ Installation</a> •
+  <a href="#-api">🔧 API</a> •
   <a href="#-credits">❤️ Credits</a> •
   <a href="#-support">📞 Support</a> •
   <a href="#-license">📃 License</a>
