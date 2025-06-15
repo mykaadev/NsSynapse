@@ -55,7 +55,7 @@ Utility AI evaluates many potential actions and ranks them based on their desira
 Unreal Engine 5.2+
 
 ## 🛠️ Installation
-1. **[Download](https://github.com/mykaadev/Synapse)** the latest release.
+1. **[Download](https://github.com/mykaadev/NsSynapse)** the latest release.
 2. Extract the archive into your project's `Plugins` folder: `.../UEGame/Plugins/NsSynapse`.
 3. Add the plugin to your `UEGame.uproject` and generate project files.
 4. Open the project and enable **NsUtilityAI** if prompted.
