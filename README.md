@@ -1,3 +1,4 @@
+<!-- GH_ONLY_START -->
 <h1 align="center">
   <br>
   <a href="https://github.com/mykaadev/NsSynapse"> <img src="https://raw.githubusercontent.com/mykaadev/NsSynapse/refs/heads/main/Resources/UtilityAIBanner.png" alt="NsSynapse" width="350"></a>
@@ -26,6 +27,7 @@
 <a href="https://buymeacoffee.com/mykaadev"><img src="https://www.svgrepo.com/show/476855/coffee-to-go.svg" alt="Coffee" width=50px"></a>
 <p><b>Buy me a coffee!</b></p>
 </div>
+<!-- GH_ONLY_END -->
 
 ## 👀 Summary
 A decision-making framework for Unreal Engine agents where every possible action is evaluated by a set of considerations. The resulting utility score selects which action to execute.
@@ -146,7 +148,7 @@ class UAttackAction : public UNsSynapseAction
     }
 };
 ```
-
+<!-- GH_ONLY_START -->
 ## ❤️ Credits
 <a href="https://github.com/mykaadev/NsUtilityAI/graphs/contributors"><img src="https://contrib.rocks/image?repo=mykaadev/NsUtilityAI"/></a>
 
@@ -155,3 +157,4 @@ Reach out via the **[profile page](https://github.com/mykaadev)**.
 
 ## 📃 License
 [![License](https://img.shields.io/badge/license-MIT-green)](https://www.tldrlegal.com/license/mit-license)
+<!-- GH_ONLY_END -->
