@@ -1,4 +1,4 @@
-﻿{
+{
 	"FileVersion": 3,
 	"Version": 1,
 	"VersionName": "1.0",
@@ -6,9 +6,9 @@
 	"Description": "Night Shift - Synapse Utility AI",
 	"Category": "Other",
 	"CreatedBy": "mykaadev",
-	"CreatedByURL": " mykaadev.github.io",
-	"DocsURL": "https://mykaadev.github.io/plugins/Synapse",
-	"MarketplaceURL": "",
+	"CreatedByURL": "mykaadev.github.io",
+	"DocsURL": "https://mykaadev.github.io/plugins/NsSynapse",
+	"FabURL": "com.epicgames.launcher://ue/Fab/product/4a1befcc-d301-40c6-872f-003dfd0ec872",
 	"CanContainContent": true,
 	"IsBetaVersion": false,
 	"IsExperimentalVersion": false,
@@ -17,7 +17,14 @@
 		{
 			"Name": "NsSynapse",
 			"Type": "Runtime",
-			"LoadingPhase": "Default"
+			"LoadingPhase": "Default",
+			"PlatformAllowList": [
+				"Linux",
+				"Mac",
+				"Win64"
+			]
 		}
-	]
+	],
+	"MarketplaceURL": "",
+	"SupportURL": ""
 }
