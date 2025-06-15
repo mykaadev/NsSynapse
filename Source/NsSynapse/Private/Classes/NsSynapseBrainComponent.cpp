@@ -1,16 +1,16 @@
 // Copyright (C) 2024 mykaa. All rights reserved.
 
-#include "Classes/NsUtilAIBrainComponent.h"
-#include "Classes/NsUtilAIAction.h"
-#include "Classes/NsUtilAIConsideration.h"
+#include "Classes/NsSynapseBrainComponent.h"
+#include "Classes/NsSynapseAction.h"
+#include "Classes/NsSynapseConsideration.h"
 
-UNsUtilAIBrainComponent::UNsUtilAIBrainComponent()
+UNsSynapseBrainComponent::UNsSynapseBrainComponent()
     : BestAction(nullptr)
 {
     PrimaryComponentTick.bCanEverTick = false;
 }
 
-void UNsUtilAIBrainComponent::ChooseAction(const TArray<TSubclassOf<UNsUtilAIAction>>& InActions)
+void UNsSynapseBrainComponent::ChooseAction(const TArray<TSubclassOf<UNsSynapseAction>>& InActions)
 {
     BestAction = nullptr;
 
@@ -23,14 +23,14 @@ void UNsUtilAIBrainComponent::ChooseAction(const TArray<TSubclassOf<UNsUtilAIAct
     float BestScore = 0.f;
 
     // Loop through each action, score it, and pick the highest
-    for (const TSubclassOf<UNsUtilAIAction>& ActionClass : InActions)
+    for (const TSubclassOf<UNsSynapseAction>& ActionClass : InActions)
     {
         if (ActionClass == nullptr)
         {
             continue;
         }
 
-        if (UNsUtilAIAction* const Action = ActionClass->GetDefaultObject<UNsUtilAIAction>())
+        if (UNsSynapseAction* const Action = ActionClass->GetDefaultObject<UNsSynapseAction>())
         {
             // Compute this action's score
             const float CurrentScore = ScoreAction(Action);
@@ -44,7 +44,7 @@ void UNsUtilAIBrainComponent::ChooseAction(const TArray<TSubclassOf<UNsUtilAIAct
     }
 }
 
-float UNsUtilAIBrainComponent::ScoreAction(UNsUtilAIAction* const InAction) const
+float UNsSynapseBrainComponent::ScoreAction(UNsSynapseAction* const InAction) const
 {
     // If action is null, score zero
     if (InAction == nullptr)
@@ -53,7 +53,7 @@ float UNsUtilAIBrainComponent::ScoreAction(UNsUtilAIAction* const InAction) cons
     }
 
     // Get the list of consideration classes from this action
-    const TArray<TSubclassOf<UNsUtilAIConsideration>>& ActionConsiderations = InAction->Considerations;
+    const TArray<TSubclassOf<UNsSynapseConsideration>>& ActionConsiderations = InAction->Considerations;
     const int32 NumConsiderations = ActionConsiderations.Num();
     if (NumConsiderations == 0)
     {
@@ -67,7 +67,7 @@ float UNsUtilAIBrainComponent::ScoreAction(UNsUtilAIAction* const InAction) cons
     float CombinedScore = 1.f;
 
     // Iterate each consideration, multiply in its final value
-    for (const TSubclassOf<UNsUtilAIConsideration>& Consideration : ActionConsiderations)
+    for (const TSubclassOf<UNsSynapseConsideration>& Consideration : ActionConsiderations)
     {
         // Skip invalid entries
         if (Consideration == nullptr || GetOwner() == nullptr)
@@ -75,7 +75,7 @@ float UNsUtilAIBrainComponent::ScoreAction(UNsUtilAIAction* const InAction) cons
             continue;
         }
 
-        if (const UNsUtilAIConsideration* const ConsiderationCDO = Consideration->GetDefaultObject<UNsUtilAIConsideration>())
+        if (const UNsSynapseConsideration* const ConsiderationCDO = Consideration->GetDefaultObject<UNsSynapseConsideration>())
         {
             // Evaluate: Designers can implement GetScore to sample the curve based state
             const float RawScore = ConsiderationCDO->GetScore(GetOwner());
@@ -95,19 +95,19 @@ float UNsUtilAIBrainComponent::ScoreAction(UNsUtilAIAction* const InAction) cons
     return InAction->GetScore();
 }
 
-UNsUtilAIAction* UNsUtilAIBrainComponent::GetBestAction() const
+UNsSynapseAction* UNsSynapseBrainComponent::GetBestAction() const
 {
     return BestAction;
 }
 
-UNsUtilAIAction* UNsUtilAIBrainComponent::Think()
+UNsSynapseAction* UNsSynapseBrainComponent::Think()
 {
     // Each time Think() runs, we re-evaluate all possible actions
     ChooseAction(PossibleActions);
     return GetBestAction();
 }
 
-void UNsUtilAIBrainComponent::ThinkAndReact()
+void UNsSynapseBrainComponent::ThinkAndReact()
 {
     Think(); // Each time Think() runs, we re-evaluate all possible actions
 

@@ -6,9 +6,9 @@
 #include "Modules/ModuleManager.h"
 
 /**
- * Ns Utility AI runtime module
+ * Ns Synapse Runtime Module
  */
-class FNsUtilityAIModule : public IModuleInterface
+class FNsSynapseModule : public IModuleInterface
 {
 
 // Functions

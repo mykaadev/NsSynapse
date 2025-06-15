@@ -4,13 +4,13 @@
 
 #include "CoreMinimal.h"
 #include "UObject/Object.h"
-#include "NsUtilAIAction.generated.h"
+#include "NsSynapseAction.generated.h"
 
 /**
- * Base Action for Utility AI
+ * Synapse Utility AI - Base Action
  */
 UCLASS(Blueprintable)
-class NSUTILITYAI_API UNsUtilAIAction : public UObject
+class NSSYNAPSE_API UNsSynapseAction : public UObject
 {
     GENERATED_BODY()
 
@@ -18,7 +18,7 @@ class NSUTILITYAI_API UNsUtilAIAction : public UObject
 public:
 
     /** Constructor */
-    UNsUtilAIAction();
+    UNsSynapseAction();
 
     /** Get the normalized action score */
     UFUNCTION(BlueprintCallable, Category = "NSUtilityAI")
@@ -38,7 +38,7 @@ public:
 
     /** Considerations */
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "NSUtilityAI")
-    TArray<TSubclassOf<class UNsUtilAIConsideration>> Considerations;
+    TArray<TSubclassOf<class UNsSynapseConsideration>> Considerations;
 
 private:
 

@@ -2,9 +2,9 @@
 
 using UnrealBuildTool;
 
-public class NsUtilityAI : ModuleRules
+public class NsSynapse : ModuleRules
 {
-    public NsUtilityAI(ReadOnlyTargetRules Target) : base(Target)
+    public NsSynapse(ReadOnlyTargetRules Target) : base(Target)
     {
         PCHUsage = ModuleRules.PCHUsageMode.UseExplicitOrSharedPCHs;
 

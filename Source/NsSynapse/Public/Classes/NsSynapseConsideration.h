@@ -5,13 +5,13 @@
 #include "CoreMinimal.h"
 #include "Curves/Curvefloat.h"
 #include "UObject/Object.h"
-#include "NsUtilAIConsideration.generated.h"
+#include "NsSynapseConsideration.generated.h"
 
 /**
- * Base Consideration for Utility AI
+ * Synapse Utility AI - Base Consideration
  */
 UCLASS(Blueprintable)
-class NSUTILITYAI_API UNsUtilAIConsideration : public UObject
+class NSSYNAPSE_API UNsSynapseConsideration : public UObject
 {
     GENERATED_BODY()
 
@@ -19,7 +19,7 @@ class NSUTILITYAI_API UNsUtilAIConsideration : public UObject
 public:
 
     /** Constructor */
-    UNsUtilAIConsideration();
+    UNsSynapseConsideration();
 
     /** Get Score */
     UFUNCTION(BlueprintCallable, Category = "NSUtilityAI")

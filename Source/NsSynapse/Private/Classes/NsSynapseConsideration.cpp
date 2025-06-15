@@ -1,9 +1,9 @@
 // Copyright (C) 2024 mykaa. All rights reserved.
 
-#include "Classes/NsUtilAIConsideration.h"
+#include "Classes/NsSynapseConsideration.h"
 #include "Curves/RichCurve.h"
 
-UNsUtilAIConsideration::UNsUtilAIConsideration()
+UNsSynapseConsideration::UNsSynapseConsideration()
     : Score(0.f)
 {
     if (ConsiderationCurve.EditorCurveData.IsEmpty())
@@ -13,7 +13,7 @@ UNsUtilAIConsideration::UNsUtilAIConsideration()
     }
 }
 
-float UNsUtilAIConsideration::GetScore(AActor* InContext) const
+float UNsSynapseConsideration::GetScore(AActor* InContext) const
 {
     // Raw score from subclass logic
     const float RawScore = CalculateScore(InContext);
@@ -25,13 +25,13 @@ float UNsUtilAIConsideration::GetScore(AActor* InContext) const
     return EvaluateInCurve(NormalizedScore);
 }
 
-float UNsUtilAIConsideration::CalculateScore_Implementation(class AActor* const InOwner) const
+float UNsSynapseConsideration::CalculateScore_Implementation(class AActor* const InOwner) const
 {
     // Override in children
     return 0.f;
 }
 
-float UNsUtilAIConsideration::EvaluateInCurve(const float InNormalizedScore) const
+float UNsSynapseConsideration::EvaluateInCurve(const float InNormalizedScore) const
 {
     const FRichCurve* const RichCurve = ConsiderationCurve.GetRichCurveConst();
     if (RichCurve != nullptr)
