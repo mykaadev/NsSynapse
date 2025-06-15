@@ -1,10 +1,3 @@
-<!-- PLUGIN_META
-title: "Synapse"
-description: "Dynamic decision-making framework"
-thumbnail: "https://raw.githubusercontent.com/mykaadev/NsSynapse/main/Resources/UtilityAIBanner.png"
-category: Algorithm
-PLUGIN_META -->
-
 <!-- GH_ONLY_START -->
 <h1 align="center">
   <br>
