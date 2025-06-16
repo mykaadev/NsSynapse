@@ -1,4 +1,4 @@
-// Copyright (C) 2024 mykaa. All rights reserved.
+// Copyright (C) 2025 mykaadev. All rights reserved.
 
 #pragma once
 
@@ -21,15 +21,15 @@ public:
     UNsSynapseAction();
 
     /** Get the normalized action score */
-    UFUNCTION(BlueprintCallable, Category = "NSUtilityAI")
+    UFUNCTION(BlueprintCallable, Category = "NsSynapse")
     float GetScore() const;
 
     /** Set the action score */
-    UFUNCTION(BlueprintCallable, Category = "NSUtilityAI")
+    UFUNCTION(BlueprintCallable, Category = "NsSynapse")
     void SetScore(const float InValue);
 
     /** Execute the action */
-    UFUNCTION(BlueprintNativeEvent, Category = "NSUtilityAI")
+    UFUNCTION(BlueprintNativeEvent, Category = "NsSynapse")
     void ExecuteAction(class AActor* InActor);
     virtual void ExecuteAction_Implementation(class AActor* const InActor);
 
@@ -37,7 +37,7 @@ public:
 public:
 
     /** Considerations */
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "NSUtilityAI")
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "NsSynapse")
     TArray<TSubclassOf<class UNsSynapseConsideration>> Considerations;
 
 private:

@@ -1,4 +1,4 @@
-// Copyright (C) 2024 mykaa. All rights reserved.
+// Copyright (C) 2025 mykaadev. All rights reserved.
 
 #pragma once
 
@@ -22,25 +22,25 @@ public:
     UNsSynapseConsideration();
 
     /** Get Score */
-    UFUNCTION(BlueprintCallable, Category = "NSUtilityAI")
+    UFUNCTION(BlueprintCallable, Category = "NsSynapse")
     float GetScore(class AActor* const InContext) const;
 
     /** Calculate Score */
-    UFUNCTION(BlueprintNativeEvent, Category = "NSUtilityAI")
+    UFUNCTION(BlueprintNativeEvent, Category = "NsSynapse")
     float CalculateScore(class AActor* InOwner) const;
     virtual float CalculateScore_Implementation(class AActor* const InOwner) const;
 
 private:
 
     /** Evaluate In curve */
-    UFUNCTION(BlueprintCallable, Category = "NSUtilityAI")
+    UFUNCTION(BlueprintCallable, Category = "NsSynapse")
     float EvaluateInCurve(const float InNormalizedScore) const;
 
 // Variables
 public:
 
     /** Consideration Curve */
-    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "NSUtilityAI")
+    UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "NsSynapse")
     FRuntimeFloatCurve ConsiderationCurve;
 
 private:
