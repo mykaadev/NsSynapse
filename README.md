@@ -1,7 +1,7 @@
 <!-- GH_ONLY_START -->
 <h1 align="center">
   <br>
-  <a href="https://github.com/mykaadev/NsSynapse"> <img src="https://raw.githubusercontent.com/mykaadev/NsSynapse/refs/heads/main/Resources/NsSynapse.png" alt="NsSynapse" width="350"></a>
+  <a href="https://github.com/mykaadev/NsSynapse"> <img src="https://raw.githubusercontent.com/mykaadev/NsSynapse/refs/heads/main/Resources/Banner" alt="NsSynapse" width="350"></a>
 </h1>
 
 <h4 align="center">A Utility AI framework for Unreal Engine.</h4>
