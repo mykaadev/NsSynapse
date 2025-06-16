@@ -1,4 +1,4 @@
-﻿// Copyright Epic Games, Inc. All Rights Reserved.
+﻿// Copyright (C) 2025 mykaadev. All rights reserved.
 
 #include "NsSynapse.h"
 
