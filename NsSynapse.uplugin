@@ -19,11 +19,7 @@
 			"Name": "NsSynapse",
 			"Type": "Runtime",
 			"LoadingPhase": "Default",
-			"PlatformAllowList": [
-				"Linux",
-				"Mac",
-				"Win64"
-			]
+			"PlatformAllowList": [ "Linux", "Mac", "Win64" ]
 		}
 	],
 	"MarketplaceURL": "com.epicgames.launcher://ue/Fab/product/2fec0d44-9f80-44a3-a891-43ab54103ba7",
