@@ -6,6 +6,7 @@
 
 UNsSynapseBrainComponent::UNsSynapseBrainComponent()
     : BestAction(nullptr)
+    , bBusy(false)
 {
     PrimaryComponentTick.bCanEverTick = false;
 }
@@ -109,6 +110,11 @@ UNsSynapseAction* UNsSynapseBrainComponent::Think()
 
 void UNsSynapseBrainComponent::ThinkAndReact()
 {
+    if (bBusy)
+    {
+        return; // Don't re-think while an action is running
+    }
+
     Think(); // Each time Think() runs, we re-evaluate all possible actions
 
     // Automatically execute the action
@@ -116,4 +122,14 @@ void UNsSynapseBrainComponent::ThinkAndReact()
     {
         BestAction->ExecuteAction(GetOwner());
     }
+}
+
+void UNsSynapseBrainComponent::SetBusy(const bool bInBusy)
+{
+    bBusy = bInBusy;
+}
+
+bool UNsSynapseBrainComponent::IsBusy() const
+{
+    return bBusy;
 }

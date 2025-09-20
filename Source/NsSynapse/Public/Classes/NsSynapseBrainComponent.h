@@ -10,7 +10,7 @@
  * Synapse Utility AI - Brain Component
  * This component evaluates all Possible Actions call, using their considerations to pick the one with the highest utility score.
  */
-UCLASS(ClassGroup=(UtilityAI), Blueprintable, meta=(BlueprintSpawnableComponent, DisplayName = "Utility AI Brain"))
+UCLASS(ClassGroup=(UtilityAI), Blueprintable, meta=(BlueprintSpawnableComponent))
 class NSSYNAPSE_API UNsSynapseBrainComponent : public UActorComponent
 {
     GENERATED_BODY()
@@ -39,11 +39,19 @@ public:
 
     /** Think about what action is better to do at this given moment, this will overwrite our current BestAction */
     UFUNCTION(BlueprintCallable, Category = "NsSynapse")
-    class UNsSynapseAction* Think();
+    virtual class UNsSynapseAction* Think();
 
     /** Think and react */
     UFUNCTION(BlueprintCallable, Category = "NsSynapse")
-    void ThinkAndReact();
+    virtual void ThinkAndReact();
+
+    /** Set the busy state (game actions toggle this) */
+    UFUNCTION(BlueprintCallable, Category = "NsSynapse")
+    void SetBusy(const bool bInBusy);
+
+    /** Query busy state */
+    UFUNCTION(BlueprintCallable, Category = "NsSynapse")
+    bool IsBusy() const;
 
 // Variables
 public:
@@ -52,7 +60,11 @@ public:
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "NsSynapse")
     TObjectPtr<class UNsSynapseAction> BestAction;
 
-    /**  List of action classes the brain can choose from */
+    /** List of action classes the brain can choose from */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "NsSynapse")
     TArray<TSubclassOf<class UNsSynapseAction>> PossibleActions;
+
+    /** True while an action is in flight */
+    UPROPERTY(VisibleAnywhere, Category = "NsSynapse")
+    bool bBusy;
 };
