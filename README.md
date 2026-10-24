@@ -20,6 +20,7 @@
   <a href="#-requirements">⚙️ Requirements</a> •
   <a href="#-installation">🛠️ Installation</a> •
   <a href="#-api">🔧 API</a> •
+  <a href="#-documentation">📚 Documentation</a> •
   <a href="#-credits">❤️ Credits</a> •
   <a href="#-support">📞 Support</a> •
   <a href="#-license">📃 License</a>
@@ -148,6 +149,10 @@ class UAttackAction : public UNsSynapseAction
     }
 };
 ```
+## 📚 Documentation
+- [User Guide](https://mykaadev.github.io/plugins/nssynapse/user-guide/) – Setup, common tasks, settings, and debug tools.
+- [Technical Documentation](https://mykaadev.github.io/plugins/nssynapse/tech-documentation/) – Architecture, lifetime, extension points, and tests.
+
 <!-- GH_ONLY_START -->
 ## ❤️ Credits
 <a href="https://github.com/mykaadev/NsUtilityAI/graphs/contributors"><img src="https://contrib.rocks/image?repo=mykaadev/NsUtilityAI"/></a>
