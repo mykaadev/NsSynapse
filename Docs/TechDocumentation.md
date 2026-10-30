@@ -102,17 +102,3 @@ The public headers include `Components/ActorComponent.h` and a curve header from
 ## Networking
 
 The plugin does not replicate.
-
-## Testing
-
-The plugin has no automated tests.
-
-## Change Rules
-
-- Keep the `CalculateScore` and `ExecuteAction` names and parameters. Blueprint child classes override them.
-- Keep the property names `PossibleActions`, `Considerations`, and `ConsiderationCurve`. Blueprint defaults and saved assets store values under these names.
-- The design shares one CDO for each action and consideration across all agents. A change to instanced objects changes the behavior of every project that uses the plugin.
-- `UNsSynapseAction::SetScore` calls `UKismetMathLibrary::NormalizeToRange(InValue, 0, 1)`. This returns the value unchanged and does not clamp it. The make-up formula keeps the product in 0..1, so the stored value stays in range.
-- `UNsSynapseConsideration::Score` is a private property that no code reads or writes.
-- `UNsSynapseConsideration::EvaluateInCurve` is a private `UFUNCTION`.
-- `NsSynapseConsideration.h` includes `Curves/Curvefloat.h`. The engine file is `Curves/CurveFloat.h`. On a case-sensitive file system, this include can fail.
