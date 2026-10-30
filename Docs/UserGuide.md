@@ -6,6 +6,8 @@ NsSynapse is a Utility AI. An agent has a list of actions. Each action has consi
 
 Use it for agents that weigh many factors, such as health, distance, and ammo. Do not use it for path finding, perception, or animation. It does not replace a Behavior Tree for long, ordered tasks.
 
+[![The scores of four example actions, with Eat as the best action](Showcase/img/scores.png)](Showcase/UtilityScores.html)
+
 ## Setup
 
 1. Copy the `NsSynapse` folder into the `Plugins` folder of your project.
