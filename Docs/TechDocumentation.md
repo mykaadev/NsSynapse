@@ -2,78 +2,117 @@
 
 ## Architecture
 
-One runtime module, `NsSynapse`.
+### Modules
 
-| Class | Role |
+| Module | Type | Loading Phase | Platforms | Content |
+|---|---|---|---|---|
+| `NsSynapse` | Runtime | Default | Linux, Mac, Win64 | The brain component, the action base class, and the consideration base class. |
+
+`FNsSynapseModule` has empty `StartupModule` and `ShutdownModule` functions. The plugin has no `Content/` folder.
+
+### Folders
+
+| Folder | Files |
 |---|---|
-| `UNsSynapseBrainComponent` | An actor component. It scores the action classes in `PossibleActions` and stores the best one. |
-| `UNsSynapseAction` | A `Blueprintable` `UObject`. It holds a list of consideration classes and runs `ExecuteAction`. |
-| `UNsSynapseConsideration` | A `Blueprintable` `UObject`. It returns a raw score from `CalculateScore` and maps it through `ConsiderationCurve`. |
+| `Source/NsSynapse/Public` | `NsSynapse.h` (module class) |
+| `Source/NsSynapse/Public/Classes` | `NsSynapseBrainComponent.h`, `NsSynapseAction.h`, `NsSynapseConsideration.h` |
+| `Source/NsSynapse/Private` | `NsSynapse.cpp` |
+| `Source/NsSynapse/Private/Classes` | The `.cpp` file of each class |
 
-Data flow for `ThinkAndReact`:
+Include the headers with the `Classes/` prefix, for example `#include "Classes/NsSynapseBrainComponent.h"`.
 
-1. If `bBusy` is true, stop.
-2. `ChooseAction` gets the CDO of each class in `PossibleActions`.
-3. `ScoreAction` gets the CDO of each consideration and calls `GetScore(Owner)`.
-4. `GetScore` clamps `CalculateScore` to 0..1, then evaluates `ConsiderationCurve`.
-5. `ScoreAction` combines the consideration scores. It stores the result on the action with `SetScore`.
-6. The action with the highest score above 0 becomes `BestAction`.
-7. `ExecuteAction(Owner)` runs on `BestAction`.
+### Main Classes
 
-### Score formula
+| Class | Responsibility |
+|---|---|
+| `UNsSynapseBrainComponent` | `UActorComponent`, `Blueprintable`, `BlueprintSpawnableComponent`, class group `UtilityAI`. It scores the action classes in `PossibleActions` and stores the best one in `BestAction`. |
+| `UNsSynapseAction` | `Blueprintable` `UObject`. It holds `Considerations` (consideration classes) and a private `Score`. It runs `ExecuteAction`. |
+| `UNsSynapseConsideration` | `Blueprintable` `UObject`. It returns a raw score from `CalculateScore` and maps it through `ConsiderationCurve` (`FRuntimeFloatCurve`). |
 
-For an action with N considerations:
+### Data Flow
+
+`ThinkAndReact` runs these steps on the calling thread:
+
+1. If `bBusy` is true, the function returns.
+2. `Think` calls `ChooseAction(PossibleActions)`.
+3. `ChooseAction` sets `BestAction` to null. For each valid class, it gets the class default object (CDO) and calls `ScoreAction`.
+4. `ScoreAction` gets the CDO of each consideration class and calls `GetScore(GetOwner())`.
+5. `GetScore` clamps `CalculateScore` to 0..1 and evaluates the curve with `FRichCurve::Eval`.
+6. `ScoreAction` clamps the curve result to 0..1, applies the make-up term, and multiplies the results.
+7. `ScoreAction` stores the product on the action CDO with `SetScore`.
+8. An action becomes `BestAction` only if its score is strictly greater than the best score so far. The best score starts at 0.
+9. If `BestAction` and the owner are valid, `ExecuteAction(GetOwner())` runs on the action CDO.
+
+Score formula for an action with N considerations:
 
 ```text
 ModificationFactor = 1 - 1 / N
-For each consideration score S (clamped 0..1):
+For each consideration score S (0..1):
     MakeUp = (1 - S) * ModificationFactor
     Final  = S + MakeUp * S
-CombinedScore = product of all Final values
+Score = product of all Final values
 ```
 
-The make-up term stops one low score from removing an action too early when N is large. This is the common compensation factor for Utility AI.
+Special cases in `ScoreAction`:
+
+- A null action scores 0.
+- An action with no considerations scores 1.
+- A null consideration class is skipped. If the component has no owner, every consideration is skipped and the score is 1.
 
 ## Lifetime
 
-- The brain component does not tick (`bCanEverTick` is false). Game code calls `Think` or `ThinkAndReact`.
-- Actions and considerations are never instanced. The brain uses their CDOs.
-- `BestAction` holds a CDO pointer. It stays valid while the class is loaded.
+- The brain component does not tick. The constructor sets `PrimaryComponentTick.bCanEverTick` to false.
+- The component does not override `BeginPlay` or `EndPlay`.
+- Actions and considerations are never instanced. The brain uses their CDOs, which live while the class is loaded.
+- `BestAction` holds a CDO pointer. `ChooseAction` sets it to null before each choice.
+- The consideration constructor adds two keys, (0, 0) and (1, 1), to `ConsiderationCurve.EditorCurveData` if the curve is empty.
 
 ## Extension Points
 
-| Point | Use |
-|---|---|
-| `UNsSynapseConsideration::CalculateScore` | `BlueprintNativeEvent`. Return the raw score. |
-| `UNsSynapseAction::ExecuteAction` | `BlueprintNativeEvent`. Run the behavior. |
-| `UNsSynapseBrainComponent::Think` | Virtual. Override to change how the brain picks an action. |
-| `UNsSynapseBrainComponent::ThinkAndReact` | Virtual. Override to change the busy rule or the run step. |
+| Point | Kind | Signature |
+|---|---|---|
+| `UNsSynapseConsideration::CalculateScore` | `BlueprintNativeEvent`, const | `float CalculateScore(AActor* InOwner) const`. The default returns 0. |
+| `UNsSynapseAction::ExecuteAction` | `BlueprintNativeEvent` | `void ExecuteAction(AActor* InActor)`. The default does nothing. |
+| `UNsSynapseBrainComponent::Think` | Virtual, `BlueprintCallable` | `virtual UNsSynapseAction* Think()` |
+| `UNsSynapseBrainComponent::ThinkAndReact` | Virtual, `BlueprintCallable` | `virtual void ThinkAndReact()` |
+| Subclass | `Blueprintable` | All three classes accept Blueprint and C++ child classes. |
+
+`ChooseAction` and `ScoreAction` are not virtual. To change the score rule, override `Think` and call your own scoring code.
+
+The plugin has no delegates, interfaces, or settings classes.
 
 ## Dependencies
 
-Public: `Core`. Private: `CoreUObject`, `Engine`, `Slate`, `SlateCore`. No other studio plugin.
+| Dependency | Kind | Why |
+|---|---|---|
+| `Core` | Public module | Core types. |
+| `CoreUObject` | Private module | `UObject` and reflection. |
+| `Engine` | Private module | `UActorComponent`, `FRuntimeFloatCurve`, `UKismetMathLibrary`. |
+| `Slate` | Private module | Listed in `Build.cs`. The source does not use it. |
+| `SlateCore` | Private module | Listed in `Build.cs`. The source does not use it. |
+
+The public headers include `Components/ActorComponent.h` and a curve header from the `Engine` module. `Engine` is a private dependency, so a module that includes these headers must add `Engine` itself. The `.uplugin` lists no plugin dependencies.
 
 ## Performance
 
-- Cost is the number of actions times the number of considerations, for each `Think` call.
-- There is no allocation in the scoring loop.
-- Call `Think` on a timer or on an event, not every frame, when there are many agents.
+- One `Think` call runs one `CalculateScore` and one curve evaluation for each consideration of each action.
+- The scoring loop makes no allocations.
+- The brain does not tick and starts no timers.
 
 ## Networking
 
-NsSynapse has no replication. Run the brain on the server for networked games, and replicate the result of the action.
+The plugin does not replicate.
 
 ## Testing
 
-NsSynapse has no automated tests. Manual test path:
-
-1. Make two actions with fixed-score considerations, for example 0.2 and 0.8.
-2. Call `Think`. Make sure that `BestAction` is the 0.8 action.
-3. Call `SetBusy(true)` and `ThinkAndReact`. Make sure that no action runs.
+The plugin has no automated tests.
 
 ## Change Rules
 
-- Keep `CalculateScore` and `ExecuteAction` signatures stable. Blueprint children depend on them.
-- The shared CDO design is the main known limit. A change to instanced actions changes behavior for all projects. Document it as a breaking change.
-- `UNsSynapseAction::SetScore` calls `NormalizeToRange(InValue, 0, 1)`. This returns the value unchanged and does not clamp it. Today all scores come in at 0..1, because the considerations clamp first.
-- `UNsSynapseConsideration::Score` is not used today.
+- Keep the `CalculateScore` and `ExecuteAction` names and parameters. Blueprint child classes override them.
+- Keep the property names `PossibleActions`, `Considerations`, and `ConsiderationCurve`. Blueprint defaults and saved assets store values under these names.
+- The design shares one CDO for each action and consideration across all agents. A change to instanced objects changes the behavior of every project that uses the plugin.
+- `UNsSynapseAction::SetScore` calls `UKismetMathLibrary::NormalizeToRange(InValue, 0, 1)`. This returns the value unchanged and does not clamp it. The make-up formula keeps the product in 0..1, so the stored value stays in range.
+- `UNsSynapseConsideration::Score` is a private property that no code reads or writes.
+- `UNsSynapseConsideration::EvaluateInCurve` is a private `UFUNCTION`.
+- `NsSynapseConsideration.h` includes `Curves/Curvefloat.h`. The engine file is `Curves/CurveFloat.h`. On a case-sensitive file system, this include can fail.
