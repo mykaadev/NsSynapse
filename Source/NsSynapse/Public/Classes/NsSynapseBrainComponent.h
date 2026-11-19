@@ -8,7 +8,7 @@
 
 /**
  * Synapse Utility AI - Brain Component
- * This component evaluates all Possible Actions call, using their considerations to pick the one with the highest utility score.
+ * This component evaluates all Possible Actions call, using their considerations to pick the one with the highest utility score
  */
 UCLASS(ClassGroup=(UtilityAI), Blueprintable, meta=(BlueprintSpawnableComponent))
 class NSSYNAPSE_API UNsSynapseBrainComponent : public UActorComponent
@@ -28,7 +28,7 @@ public:
     /**
      * Scores a given action by combining its considerations.
      * @param InAction - A UNsSynapseAction to evaluate.
-     * @return The final utility score normalized between [0,1].
+     * @return The final utility score normalized between [0,1]
      */
     UFUNCTION(BlueprintCallable, Category = "NsSynapse")
     float ScoreAction(class UNsSynapseAction* const InAction) const;

@@ -58,7 +58,7 @@ float UNsSynapseBrainComponent::ScoreAction(UNsSynapseAction* const InAction) co
     const int32 NumConsiderations = ActionConsiderations.Num();
     if (NumConsiderations == 0)
     {
-        // No considerations means the action is fully desirable.
+        // No considerations means the action is fully desirable
         InAction->SetScore(1.f);
         return 1.f;
     }
